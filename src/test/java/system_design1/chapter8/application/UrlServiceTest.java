@@ -5,11 +5,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
-import system_design1.chapter8.dto.UrlResponse;
+import system_design1.chapter8.dto.ShortUrlResponse;
 import system_design1.chapter8.persistence.entity.UrlJpaEntity;
 import system_design1.chapter8.persistence.repository.UrlRepository;
-
-import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -23,9 +21,9 @@ class UrlServiceTest {
     @Autowired
     private UrlRepository urlRepository;
 
-    @DisplayName("원래 url로 단축 url을 찾는다.")
+    @DisplayName("단축 url로 원래 url을 찾는다.")
     @Test
-    void getShortUrl() {
+    void getLongUrl() {
         // given
         String longUrl = "http://www.google.com";
         String shortUrl = "abc1234";
@@ -34,10 +32,10 @@ class UrlServiceTest {
         urlRepository.save(urlJpaEntity);
 
         // when
-        UrlResponse urlResponse = urlService.getShortUrl(longUrl);
+        String findUrl = urlService.getLongUrl(shortUrl);
 
         // then
-        assertThat(urlResponse.shortUrl()).isEqualTo(shortUrl);
+        assertThat(findUrl).isEqualTo(longUrl);
     }
 
     @DisplayName("입력 받은 url과 쌍을 이루는 단축 url을 저장한다.")
@@ -47,11 +45,10 @@ class UrlServiceTest {
         String longUrl = "http://www.google.com";
 
         // when
-        urlService.shortenUrl(longUrl);
+        ShortUrlResponse shortUrlResponse = urlService.shortenUrl(longUrl);
 
         // then
-        Optional<UrlJpaEntity> optionalUrlJpaEntity = urlRepository.findByLongUrl(longUrl);
         assertThat(urlRepository.count()).isEqualTo(1);
-        assertThat(optionalUrlJpaEntity).isNotNull();
+        assertThat(shortUrlResponse.shortUrl()).isNotNull();
     }
 }
