@@ -1,10 +1,9 @@
 package system_design1.chapter8.presentation;
 
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import system_design1.chapter8.application.UrlService;
 import system_design1.chapter8.dto.UrlRequest;
+import system_design1.chapter8.dto.UrlResponse;
 
 @RestController
 public class UrlController {
@@ -15,7 +14,12 @@ public class UrlController {
         this.urlService = urlService;
     }
 
-    @PostMapping("/shorten")
+    @GetMapping("/short-url")
+    public UrlResponse getShortUrl(@RequestParam final String longUrl) {
+        return urlService.getShortUrl(longUrl);
+    }
+
+    @PostMapping("/short-url")
     public void shortenUrl(@RequestBody final UrlRequest request) {
         urlService.shortenUrl(request.longUrl());
     }
