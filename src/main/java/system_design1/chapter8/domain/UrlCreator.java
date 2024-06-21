@@ -19,4 +19,21 @@ public enum UrlCreator {
 
         return shortUrl.toString();
     }
+
+    // 유일한 숫자 -> base62 인코딩
+    public static String encode(long number) {
+        StringBuilder encodedString = new StringBuilder();
+
+        if (number == 0) {
+            return "0";
+        }
+
+        while (number > 0) {
+            int remainder = (int) (number % BASE62_LENGTH);
+            encodedString.append(BASE62.charAt(remainder));
+            number /= BASE62_LENGTH;
+        }
+
+        return encodedString.reverse().toString();
+    }
 }
