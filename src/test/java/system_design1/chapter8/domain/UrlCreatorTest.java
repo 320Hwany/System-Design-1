@@ -29,4 +29,26 @@ class UrlCreatorTest {
             assertThat(Character.isLetterOrDigit(c)).isTrue();
         }
     }
+
+    @DisplayName("숫자를 base62 방식으로 인코딩한다.")
+    @Test
+    void encode() {
+        // given
+        long number1 = 0;
+        long number2 = 10;
+        long number3 = 61;
+        long number4 = 62;
+
+        // when
+        String encode1 = UrlCreator.encode(number1);
+        String encode2 = UrlCreator.encode(number2);
+        String encode3 = UrlCreator.encode(number3);
+        String encode4 = UrlCreator.encode(number4);
+
+        // then
+        assertThat(encode1).isEqualTo("0");
+        assertThat(encode2).isEqualTo("A");
+        assertThat(encode3).isEqualTo("z");
+        assertThat(encode4).isEqualTo("10");
+    }
 }
