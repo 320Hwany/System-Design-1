@@ -1,6 +1,9 @@
 package system_design1.chapter8.domain;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Random;
+import java.util.zip.CRC32;
 
 public enum UrlCreator {
 
@@ -35,5 +38,33 @@ public enum UrlCreator {
         }
 
         return encodedString.reverse().toString();
+    }
+
+    // CRC32 해시
+    public static String CRC32Hash(final String url) {
+        CRC32 crc32 = new CRC32();
+        crc32.update(url.getBytes());
+        long hashValue = crc32.getValue();
+
+        return Long.toHexString(hashValue);
+    }
+
+    // MD5, SHA-1 해시
+    private static String hash(final String url, final String hashAlgorithm) {
+        try {
+            StringBuilder sb = new StringBuilder();
+            MessageDigest md = MessageDigest.getInstance(hashAlgorithm);
+            md.update(url.getBytes());
+            byte[] digest = md.digest();
+
+            for (byte b : digest) {
+                sb.append(String.format("%02x", b));
+            }
+
+            return sb.toString();
+
+        } catch (NoSuchAlgorithmException e) {
+            throw new IllegalArgumentException();
+        }
     }
 }
