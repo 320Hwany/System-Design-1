@@ -3,6 +3,10 @@ package system_design1.chapter8.domain;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.util.UUID;
+
 import static org.assertj.core.api.Assertions.*;
 
 class UrlCreatorTest {
@@ -50,5 +54,60 @@ class UrlCreatorTest {
         assertThat(encode2).isEqualTo("A");
         assertThat(encode3).isEqualTo("z");
         assertThat(encode4).isEqualTo("10");
+    }
+
+    @Test
+    void base62CreateTest() {
+        LocalDateTime startDateTime = LocalDateTime.now();
+
+        for (int i = 0; i < 100000; i++) {
+            String shortUrl = UrlCreator.createShortUrl();
+        }
+
+        String shortUrl = UrlCreator.createShortUrl();
+        System.out.println(shortUrl);
+
+        LocalDateTime endDateTime = LocalDateTime.now();
+        Duration duration = Duration.between(startDateTime, endDateTime);
+    }
+
+    @Test
+    void UUIDCreateTest() {
+        LocalDateTime startDateTime = LocalDateTime.now();
+
+        for (int i = 0; i < 100000; i++) {
+            UUID uuid = UUID.randomUUID();
+        }
+
+        UUID uuid = UUID.randomUUID();
+        System.out.println(uuid);
+
+        LocalDateTime endDateTime = LocalDateTime.now();
+        Duration duration = Duration.between(startDateTime, endDateTime);
+        System.out.println(duration.toMillis());
+    }
+
+    @Test
+    void bothCreateTest() {
+        LocalDateTime startDateTime1 = LocalDateTime.now();
+
+        for (int i = 0; i < 100000; i++) {
+            String shortUrl = UrlCreator.createShortUrl();
+        }
+
+        LocalDateTime endDateTime1 = LocalDateTime.now();
+        long millis1 = Duration.between(startDateTime1, endDateTime1).toMillis();
+
+
+        LocalDateTime startDateTime2 = LocalDateTime.now();
+
+        for (int i = 0; i < 100000; i++) {
+            UUID uuid = UUID.randomUUID();
+        }
+
+        LocalDateTime endDateTime2 = LocalDateTime.now();
+        long millis2 = Duration.between(startDateTime2, endDateTime2).toMillis();
+
+        System.out.println((double) millis2 / millis1);
     }
 }

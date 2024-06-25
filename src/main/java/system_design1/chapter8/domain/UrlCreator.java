@@ -11,7 +11,7 @@ public enum UrlCreator {
 
     private static final String BASE62 = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
     private static final int BASE62_LENGTH = 62;
-    private static final int SHORT_URL_LENGTH = 7;
+    private static final int SHORT_URL_LENGTH = 21;
     private static final Random random = new Random();
 
     public static String createShortUrl() {
