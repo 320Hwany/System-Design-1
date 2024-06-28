@@ -16,14 +16,14 @@ public class MemberJpaEntity {
 
     private String email;
 
-    private int phoneNumber;
+    private String phoneNumber;
 
     private LocalDateTime createdArt;
 
     protected MemberJpaEntity() {
     }
 
-    private MemberJpaEntity(final String email, final int phoneNumber, final LocalDateTime createdArt) {
+    private MemberJpaEntity(final String email, final String phoneNumber, final LocalDateTime createdArt) {
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.createdArt = createdArt;

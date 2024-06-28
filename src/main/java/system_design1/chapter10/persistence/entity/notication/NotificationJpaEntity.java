@@ -38,4 +38,16 @@ public class NotificationJpaEntity {
                 notificationAppendRequest.message()
         );
     }
+
+    public boolean isAppPush() {
+        return notificationType.equals(NotificationType.APP_PUSH);
+    }
+
+    public boolean isSMS() {
+        return notificationType.equals(NotificationType.SMS);
+    }
+
+    public boolean isEmail() {
+        return notificationType.equals(NotificationType.EMAIL);
+    }
 }

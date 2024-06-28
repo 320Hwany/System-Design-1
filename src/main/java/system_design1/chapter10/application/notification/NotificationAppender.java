@@ -1,4 +1,4 @@
-package system_design1.chapter10.application;
+package system_design1.chapter10.application.notification;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
