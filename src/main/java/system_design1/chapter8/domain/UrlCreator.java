@@ -2,7 +2,7 @@ package system_design1.chapter8.domain;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.Random;
+import java.security.SecureRandom;
 import java.util.zip.CRC32;
 
 public enum UrlCreator {
@@ -12,15 +12,15 @@ public enum UrlCreator {
     private static final String BASE62 = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
     private static final int BASE62_LENGTH = 62;
     private static final int SHORT_URL_LENGTH = 21;
-    private static final Random random = new Random();
+    private static final SecureRandom random = new SecureRandom();
 
     public static String createShortUrl() {
-        StringBuilder shortUrl = new StringBuilder(SHORT_URL_LENGTH);
+        char[] shortUrl = new char[SHORT_URL_LENGTH];
         for (int i = 0; i < SHORT_URL_LENGTH; i++) {
-            shortUrl.append(BASE62.charAt(random.nextInt(BASE62_LENGTH)));
+            shortUrl[i] = BASE62.charAt(random.nextInt(BASE62_LENGTH));
         }
 
-        return shortUrl.toString();
+        return String.valueOf(shortUrl);
     }
 
     // 유일한 숫자 -> base62 인코딩

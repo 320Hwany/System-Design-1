@@ -69,6 +69,7 @@ class UrlCreatorTest {
 
         LocalDateTime endDateTime = LocalDateTime.now();
         Duration duration = Duration.between(startDateTime, endDateTime);
+        System.out.println(duration.toMillis());
     }
 
     @Test
